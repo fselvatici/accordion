@@ -1,0 +1,30 @@
+<language-addon>
+	<addon-name>accordion</addon-name>
+	<version>
+		<version-class>org.zkoss.component.accordion.Version</version-class>
+		<version-uid>0.0.1-SNAPSHOT</version-uid>
+		<zk-version>5.0.6</zk-version><!-- or later -->
+	</version>
+
+	<language-name>xul/html</language-name>
+	<component>
+		<component-name>accordion</component-name>
+		<component-class>org.zkoss.component.accordion.Accordion
+		</component-class>
+		<widget-class>accordion.Accordion</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/accordion.js</mold-uri>
+			<css-uri>css/accordion.css.dsp</css-uri>
+		</mold>
+	</component>
+	<component>
+		<component-name>accordionpanel</component-name>
+		<component-class>org.zkoss.component.accordion.Accordionpanel</component-class>
+		<widget-class>accordion.Accordionpanel</widget-class>
+		<mold>
+			<mold-name>default</mold-name>
+			<mold-uri>mold/accordionpanel.js</mold-uri>
+		</mold>
+	</component>
+</language-addon>

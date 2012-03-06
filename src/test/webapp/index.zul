@@ -1,0 +1,20 @@
+<zk>
+	<window title="Hello World!!" border="normal" width="300px"
+		apply="ctrl.DemoWindowComposer">
+		<accordion id="myComp" />
+	</window>
+
+	<accordion>
+		<window title="TITULO">
+			<label value="HOLA"></label>
+		</window>
+		<accordionpanel>
+			<window>
+				<label value="AAA"></label>
+			</window>
+		</accordionpanel>
+		<accordionpanel>
+				<label value="BBB"></label>
+		</accordionpanel>
+	</accordion>
+</zk>
