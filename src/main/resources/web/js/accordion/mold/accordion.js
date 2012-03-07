@@ -5,7 +5,7 @@
  */
 function (out) {
 	var uuid = this.uuid;
-	
+
 	out.push('<div', this.domAttrs_(), ' id="',uuid, '">');
 	out.push('<ol>');
 	
@@ -15,8 +15,8 @@ function (out) {
 	out.push('</ol>');
 	out.push('</div>');
 
-	out.push('<script>');
-	out.push('(function($) {$(#',uuid,').liteAccordion("play");})(jQuery);');
-	out.push('</script>');
+//	out.push('<script>');
+//	out.push('(function($) {$(#',uuid,').liteAccordion("play");})(jQuery);');
+//	out.push('</script>');
 
 }
