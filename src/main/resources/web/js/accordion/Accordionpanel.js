@@ -20,7 +20,7 @@
  *
  */
 accordion.Accordionpanel = zk.$extends(zul.Widget, {
-	_text:'', //default value for text attribute
+	_title:'', //default value for title attribute
 	
 	/**
 	 * Don't use array/object as a member field, it's a restriction for ZK object,
@@ -42,7 +42,7 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 		 * It's more clear.
 		 *
 		 */
-		text: function() { //this function will be called after setText() .
+		title: function() { //this function will be called after setTitle() .
 		
 			if(this.desktop) {
 				//updated UI here.
@@ -56,9 +56,9 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 	 * Like the example below, they are the same as we mentioned in $define section.
 	 */
 	/*
-	getText:function(){ return this._text; },
-	setText:function(val){
-		this._text = val;
+	getTitle:function(){ return this._title; },
+	setTitle:function(val){
+		this._title = val;
 		if(this.desktop){
 		//update the UI here.
 		}

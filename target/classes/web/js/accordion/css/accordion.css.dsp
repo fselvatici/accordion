@@ -3,9 +3,6 @@
 --%>
 <%@ taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" %>
 
-.z-accordion{
-     color:black;
-}
 
 .accordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif }
 .accordion > ol { position: relative; overflow: hidden; height: 100%; margin: 0; padding: 0; list-style-type: none }

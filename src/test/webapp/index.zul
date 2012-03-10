@@ -1,15 +1,14 @@
 <zk>
-	<!-- 	<window title="Hello World!!" border="normal" width="300px" -->
-	<!-- 		apply="ctrl.DemoWindowComposer"> -->
-	<!-- 		<accordion id="myComp" /> -->
-	<!-- 	</window> -->
-
 	<accordion>
-		<accordionpanel>
-			<label value="AAA"></label>
+		<accordionpanel title="Titulo de A">
+			<window title="Título de AAA" width="100px" height="100px" border="normal">
+				<label value="AAA"></label>
+			</window>
 		</accordionpanel>
-		<accordionpanel>
-			<label value="BBB"></label>
+		<accordionpanel title="Titulo de B">
+			<window title="Título de BBB">
+				<label value="BBB"></label>
+			</window>
 		</accordionpanel>
 	</accordion>
 </zk>

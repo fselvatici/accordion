@@ -7,17 +7,17 @@ public class Accordionpanel extends XulElement {
 
 	/* Here's a simple example for how to implements a member field */
 
-	private String _text;
+	private String _title;
 
-	public String getText() {
-		return _text;
+	public String getTitle() {
+		return _title;
 	}
 
-	public void setText(String text) {
+	public void setTitle(String title) {
 
-		if (!Objects.equals(_text, text)) {
-			_text = text;
-			smartUpdate("text", _text);
+		if (!Objects.equals(_title, title)) {
+			_title = title;
+			smartUpdate("text", _title);
 		}
 	}
 
@@ -26,7 +26,7 @@ public class Accordionpanel extends XulElement {
 			throws java.io.IOException {
 		super.renderProperties(renderer);
 
-		render(renderer, "text", _text);
+		render(renderer, "text", _title);
 	}
 
 	/**

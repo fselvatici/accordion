@@ -64,6 +64,7 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		 * STATEMENT in the function. DONT'T forget to call supers in bind_ , or
 		 * you will get error.
 		 */
+		var uuid = this.uuid;
 		this.$supers(accordion.Accordion, 'bind_', arguments);
 
 		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
