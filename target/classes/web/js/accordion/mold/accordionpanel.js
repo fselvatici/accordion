@@ -3,7 +3,7 @@ function (out) {
 	
 	out.push('<li>');
 	for (var w = this.firstChild; w; w = w.nextSibling) {
-		out.push('<h2><span>',this.text,'</span></h2>');
+		out.push('<h2><span>',this._title,'</span></h2>');
 		w.redraw(out);
 	}
 	out.push('</li>');

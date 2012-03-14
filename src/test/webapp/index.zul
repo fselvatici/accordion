@@ -1,14 +1,31 @@
 <zk>
-	<accordion>
-		<accordionpanel title="Titulo de A">
+	<accordion id="ac" containerWidth="700" containerHeight="250" headerWidth="50" theme="stitch">
+	<attribute name="onSelect">
+	<![CDATA[
+			ac.setTheme("dark");
+	]]>
+	</attribute>
+		<accordionpanel id="ap1" title="Titulo de A">
 			<window title="Título de AAA" width="100px" height="100px" border="normal">
 				<label value="AAA"></label>
 			</window>
 		</accordionpanel>
-		<accordionpanel title="Titulo de B">
+		<accordionpanel id="ap2" title="Titulo de B">
 			<window title="Título de BBB">
 				<label value="BBB"></label>
 			</window>
 		</accordionpanel>
 	</accordion>
+	<button label="Change Theme"><attribute name="onClick"><![CDATA[
+	    if (ac.getTheme().equals("basic")) {
+	    	ac.setTheme("dark");
+	    } else {
+			ac.setTheme("basic");
+	    }
+	]]></attribute></button>
+	<button label="Swap Title"><attribute name="onClick"><![CDATA[
+		String t = ap1.getTitle();
+		ap1.setTitle(ap2.getTitle());
+		ap2.setTitle(t);
+	]]></attribute></button>
 </zk>

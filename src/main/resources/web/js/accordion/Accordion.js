@@ -15,48 +15,160 @@
  * 
  */
 accordion.Accordion = zk.$extends(zul.Widget, {
-	_text : '', // default value for text attribute
-
-	/**
-	 * Don't use array/object as a member field, it's a restriction for ZK
-	 * object, it will work like a static , share with all the same Widget class
-	 * instance.
-	 * 
-	 * if you really need this , assign it in bind_ method to prevent any
-	 * trouble.
-	 * 
-	 * TODO:check array or object , must be one of them ...I forgot. -_- by Tony
-	 */
+	_containerWidth : null,
+	_containerHeight : null,
+	_headerWidth : null,
+	_autoPlay : null,
+	_activateOn : null,
+	_firstSlide : null,
+	_slideSpeed : null,
+	_pauseOnHover : null,
+	_cycleSpeed : null,
+	_easing : null,
+	_theme : null,
+	_rounded : null,
+	_enumerateSlides : null,
+	_linkable : null,
 
 	$define : {
-		/**
-		 * The member in $define means that it has its own setter/getter. (It's
-		 * a coding sugar.)
-		 * 
-		 * If you don't get this , you could see the comment below for another
-		 * way to do this.
-		 * 
-		 * It's more clear.
-		 * 
-		 */
-		text : function() { // this function will be called after setText() .
-
-			if (this.desktop) {
-				// updated UI here.
-			}
-		}
+		getContainerWidth : function() {
+			return this._containerWidth;
+		},
+		getContainerHeight : function() {
+			return this._containerHeight;
+		},
+		getHeaderWidth : function() {
+			return this._headerWidth;
+		},
+		getAutoPlay : function() {
+			return this._autoPlay;
+		},
+		getActivateOn : function() {
+			return this._activateOn;
+		},
+		getFirstSlide : function() {
+			return this._firstSlide;
+		},
+		getActivateOn : function() {
+			return this.__activateOn;
+		},
+		getSlideSpeed : function() {
+			return this._slideSpeed;
+		},
+		getPauseOnHover : function() {
+			return this._pauseOnHover;
+		},
+		getCycleSpeed : function() {
+			return this._cycleSpeed;
+		},
+		getEasing : function() {
+			return this._easing;
+		},
+		getTheme : function() {
+			return this._theme;
+		},
+		getRounded : function() {
+			return this._rounded;
+		},
+		getEnumerateSlides : function() {
+			return this._enumerateSlides;
+		},
+		getLinkable : function() {
+			return this._linkable;
+		},
 	},
 	/**
-	 * If you don't like the way in $define , you could do the setter/getter by
-	 * yourself here.
-	 * 
-	 * Like the example below, they are the same as we mentioned in $define
-	 * section.
+	 * Returns the accordionpanel that this accordion owns.
+	 * @return Accordionpanel
 	 */
-	/*
-	 * getText:function(){ return this._text; }, setText:function(val){
-	 * this._text = val; if(this.desktop){ //update the UI here. } },
-	 */
+	getAccordionpanel: function () {
+		return this.accordionpanel;
+	},
+
+	setContainerWidth : function(containerWidth) {
+		if (this._containerWidth != containerWidth) {
+			this._containerWidth = containerWidth;
+			this.rerender();
+		}
+	},
+	setContainerHeight : function(containerHeight) {
+		if (this._containerHeight != containerHeight) {
+			this._containerHeight = containerHeight;
+			this.rerender();
+		}
+	},
+	setHeaderWidth : function(headerWidth) {
+		if (this._headerWidth != headerWidth) {
+			this._headerWidth = headerWidth;
+			this.rerender();
+		}
+	},
+	setAutoPlay : function(autoPlay) {
+		if (this._autoPlay != autoPlay) {
+			this._autoPlay = autoPlay;
+			this.rerender();
+		}
+	},
+	activateOn : function() {
+		if (this._activateOn != activateOn) {
+			this._activateOn = activateOn;
+			this.rerender();
+		}
+	},
+	firstSlide : function() {
+		if (this._firstSlide != firstSlide) {
+			this._firstSlide = firstSlide;
+			this.rerender();
+		}
+	},
+	slideSpeed : function() {
+		if (this._slideSpeed != slideSpeed) {
+			this._slideSpeed = slideSpeed;
+			this.rerender();
+		}
+	},
+	pauseOnHover : function() {
+		if (this._pauseOnHover != pauseOnHover) {
+			this._pauseOnHover = pauseOnHover;
+			this.rerender();
+		}
+	},
+	cycleSpeed : function() {
+		if (this._cycleSpeed != cycleSpeed) {
+			this._cycleSpeed = cycleSpeed;
+			this.rerender();
+		}
+	},
+	rounded : function() {
+		if (this._rounded != rounded) {
+			this._rounded = rounded;
+			this.rerender();
+		}
+	},
+	easing : function() {
+		if (this._easing != easing) {
+			this._easing = easing;
+			this.rerender();
+		}
+	},
+	setTheme : function(theme) {
+		if (this._theme != theme) {
+			this._theme = theme;
+			this.rerender();
+		}
+	},
+	enumerateSlides : function() {
+		if (this._enumerateSlides != enumerateSlides) {
+			this._enumerateSlides = enumerateSlides;
+			this.rerender();
+		}
+	},
+	linkable : function() {
+		if (this._linkable != linkable) {
+			this._linkable = rounded;
+			this.rerender();
+		}
+	},
 
 	bind_ : function() {
 		/**
@@ -64,15 +176,10 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		 * STATEMENT in the function. DONT'T forget to call supers in bind_ , or
 		 * you will get error.
 		 */
-		var uuid = this.uuid;
 		this.$supers(accordion.Accordion, 'bind_', arguments);
 
 		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
 		// this.domListen_(this.$n("cave"), "onClick", "_doItemsClick");
-	},
-	
-	show : function() {
-		$('aaa').liteAccordion('play');
 	},
 
 	/*
@@ -95,5 +202,22 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 
 	getZclass : function() {
 		return this._zclass != null ? this._zclass : "z-accordion";
-	}
+	},
+	
+	onChildAdded_: function (child) {
+		this.$supers('onChildAdded_', arguments);
+		if (child.$instanceof(accordion.Accordionpanel)) {
+			this.accordionpanel = child;
+		}
+		this.rerender();
+	},
+	
+	onChildRemoved_: function (child) {
+		this.$supers('onChildRemoved_', arguments);
+		if (child == this.accordionpanel)
+			this.tabpanels = null;
+		if (!this.childReplacing_)
+			this.rerender();
+	},
+
 });

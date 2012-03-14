@@ -144,10 +144,10 @@
     left: -9px; 
     background: #353535; 
     border-width: 9px;     
-    -webkit-border-image: url('bg_stitch.png') 9 repeat; 
-    -moz-border-image: url('bg_stitch.png') 9 repeat;
-    -o-border-image: url('bg_stitch.png') 9 repeat;
-    border-image: url('bg_stitch.png') 9 repeat;   
+    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
+    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;   
 }
 .stitch .slide > h2 { background: #353535 }
 .stitch .slide > h2 span {
@@ -156,12 +156,12 @@
     color: white;
     text-shadow: -1px 1px 0 #5b5b5b;
     border-width: 9px; 
-    background-image: url('bg_noise.png');
+    background-image: url(${c:encodeURL('~./img/bg_noise.png')});
     margin-top: 0;
-    -webkit-border-image: url('bg_stitch.png') 9 repeat; 
-    -moz-border-image: url('bg_stitch.png') 9 repeat;
-    -o-border-image: url('bg_stitch.png') 9 repeat;
-    border-image: url('bg_stitch.png') 9 repeat;
+    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
+    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
 }
 .stitch .slide > h2.selected:after { 
     content: ''; 
@@ -180,11 +180,11 @@
     border-width: 9px;
     border-top: 0;
     border-left: 0; 
-    -webkit-border-image: url('bg_stitch.png') 9 repeat; 
-    -moz-border-image: url('bg_stitch.png') 9 repeat;
-    -o-border-image: url('bg_stitch.png') 9 repeat;
-    border-image: url('bg_stitch.png') 9 repeat;
-    background-image: url('bg_noise.png');  
+    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
+    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
+    background-image: url(${c:encodeURL('~./img/bg_noise.png')});  
 }
 
 .stitch .slide:nth-child(1) > h2 span, .stitch .slide:nth-child(1) > h2:after { background-color: #c25252 }

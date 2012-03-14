@@ -1,24 +1,48 @@
 package org.zkoss.component.accordion;
 
 import org.zkoss.lang.Objects;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.UiException;
+import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zul.impl.XulElement;
 
 public class Accordionpanel extends XulElement {
 
 	/* Here's a simple example for how to implements a member field */
 
-	private String _title;
+	private String title;
+
+	static {
+		addClientEvent(Accordionpanel.class,
+				AccordionSelectEvent.ON_ACCORDION_SELECT, CE_IMPORTANT);
+	}
 
 	public String getTitle() {
-		return _title;
+		return title;
 	}
 
 	public void setTitle(String title) {
 
-		if (!Objects.equals(_title, title)) {
-			_title = title;
-			smartUpdate("text", _title);
+		if (!Objects.equals(this.title, title)) {
+			this.title = title;
+			smartUpdate("title", this.title);
 		}
+	}
+
+	/**
+	 * Returns the accordion owns this component.
+	 * <p>
+	 * It is the same as {@link #getParent}.
+	 */
+	public Accordion getAccordion() {
+		return (Accordion) getParent();
+	}
+
+	// -- Component --//
+	public void beforeParentChanged(Component parent) {
+		if (parent != null && !(parent instanceof Accordion))
+			throw new UiException("Wrong parent: " + parent);
+		super.beforeParentChanged(parent);
 	}
 
 	// super//
@@ -26,7 +50,7 @@ public class Accordionpanel extends XulElement {
 			throws java.io.IOException {
 		super.renderProperties(renderer);
 
-		render(renderer, "text", _title);
+		render(renderer, "title", title);
 	}
 
 	/**
@@ -35,4 +59,15 @@ public class Accordionpanel extends XulElement {
 	public String getZclass() {
 		return (this._zclass != null ? this._zclass : "z-accordion");
 	}
+
+	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
+		final String cmd = request.getCommand();
+		if (cmd.equals(AccordionSelectEvent.ON_ACCORDION_SELECT)) {
+			AccordionSelectEvent evt = AccordionSelectEvent
+					.getAccordionSelectEvent(request);
+			Events.postEvent(evt);
+		} else
+			super.service(request, everError);
+	}
+
 }
