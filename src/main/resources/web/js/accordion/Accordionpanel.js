@@ -41,59 +41,32 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 		 * It's more clear.
 		 * 
 		 */
-		getTitle : function() {
-			return this._title;
+		title : function (t) { // here is only being invoked when server side
+								// invokes smartUpdate(“title”, xxx);
+		       if (this.desktop) {
+		    	   this.$n().lastChild.innerHTML = t;
+		       }
+		    },
+		_zkf : function(val) {
+			if (this.desktop) {
+				this.rerender();
+			}
 		},
-		getSelected : function() {
-			return this._selected;
-		},
-		getPanelNum: function() {
-			return this._panelNum;
-		},
-		getAccordion: function() {
+		selected : _zkf,
+		getPanelNum : _zkf,
+		getAccordion : function () {
 			return this.parent;
-		},
-	},
-	setTitle : function(title) {
-		if (this._title != title) {
-			this._title = title;
-			this.rerender();
 		}
 	},
-	setSelected: function(selected) {
-		if (this._selected != selected) {
-			this._selected = selected;
-			this.rerender();
-		}
-	},
-	setPanelNum: function(panelNum) {
-		if (this._panelNum != panelNum) {
-			this._panelNum = panelNum;
-			this.rerender();
-		}
-	},
-	/**
-	 * If you don't like the way in $define , you could do the setter/getter by
-	 * yourself here.
-	 * 
-	 * Like the example below, they are the same as we mentioned in $define
-	 * section.
-	 */
-	_doSelect : function(evt) {
-		this.fire("onSelect", {selected: this._selected});
-	},
-
+	
 	bind_ : function() {
 		/**
 		 * For widget lifecycle , the super bind_ should be called as FIRST
 		 * STATEMENT in the function. DONT'T forget to call supers in bind_ , or
 		 * you will get error.
 		 */
+		var uuid = this.uuid;
 		this.$supers(accordion.Accordionpanel, 'bind_', arguments);
-
-		this.domListen_(this.$n(), "onClick", '_doSelect');
-		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
-		// this.domListen_(this.$n("cave"), "onClick", "_doItemsClick");
 	},
 
 	/*
@@ -111,7 +84,6 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 		 * For widget lifecycle , the super unbind_ should be called as LAST
 		 * STATEMENT in the function.
 		 */
-		this.domUnlisten_(this.$n(), "onClick", '_doSelect');
 		this.$supers(accordion.Accordionpanel, 'unbind_', arguments);
 	},
 

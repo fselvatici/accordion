@@ -30,144 +30,43 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 	_enumerateSlides : null,
 	_linkable : null,
 
+	_selectedpanel : null,
+
 	$define : {
-		getContainerWidth : function() {
-			return this._containerWidth;
+		activateOn : _zkf = function(_val) {
+			if (this.desktop) {
+				this.rerender();
+			}
 		},
-		getContainerHeight : function() {
-			return this._containerHeight;
-		},
-		getHeaderWidth : function() {
-			return this._headerWidth;
-		},
-		getAutoPlay : function() {
-			return this._autoPlay;
-		},
-		getActivateOn : function() {
-			return this._activateOn;
-		},
-		getFirstSlide : function() {
-			return this._firstSlide;
-		},
-		getActivateOn : function() {
-			return this.__activateOn;
-		},
-		getSlideSpeed : function() {
-			return this._slideSpeed;
-		},
-		getPauseOnHover : function() {
-			return this._pauseOnHover;
-		},
-		getCycleSpeed : function() {
-			return this._cycleSpeed;
-		},
-		getEasing : function() {
-			return this._easing;
-		},
-		getTheme : function() {
-			return this._theme;
-		},
-		getRounded : function() {
-			return this._rounded;
-		},
-		getEnumerateSlides : function() {
-			return this._enumerateSlides;
-		},
-		getLinkable : function() {
-			return this._linkable;
-		},
-	},
-	/**
-	 * Returns the accordionpanel that this accordion owns.
-	 * @return Accordionpanel
-	 */
-	getAccordionpanel: function () {
-		return this.accordionpanel;
+		activateOn : _zkf,
+		firstSlide : _zkf,
+		slideSpeed : _zkf,
+		pauseOnHover : _zkf,
+		cycleSpeed : _zkf,
+		rounded : _zkf,
+		easing : _zkf,
+		theme : _zkf,
+		enumerateSlides : _zkf,
+		linkable : _zkf,
+		containerWidth : _zkf,
+		containerHeigh : _zkf,
+		autoPlay : _zkf,
+		selectedpanel : _zkf
 	},
 
-	setContainerWidth : function(containerWidth) {
-		if (this._containerWidth != containerWidth) {
-			this._containerWidth = containerWidth;
-			this.rerender();
+	_doClick : function(evt) {
+		if (evt.domTarget.nodeName == 'SPAN') {
+			var paneluuid = evt.domTarget.parentNode.getAttribute('id');
+			selectedpanel = zk.Widget.$(paneluuid);
+			this.fire("onSelect", {
+				items : [ selectedpanel ],
+				reference : paneluuid
+			});
 		}
 	},
-	setContainerHeight : function(containerHeight) {
-		if (this._containerHeight != containerHeight) {
-			this._containerHeight = containerHeight;
-			this.rerender();
-		}
-	},
-	setHeaderWidth : function(headerWidth) {
-		if (this._headerWidth != headerWidth) {
-			this._headerWidth = headerWidth;
-			this.rerender();
-		}
-	},
-	setAutoPlay : function(autoPlay) {
-		if (this._autoPlay != autoPlay) {
-			this._autoPlay = autoPlay;
-			this.rerender();
-		}
-	},
-	activateOn : function() {
-		if (this._activateOn != activateOn) {
-			this._activateOn = activateOn;
-			this.rerender();
-		}
-	},
-	firstSlide : function() {
-		if (this._firstSlide != firstSlide) {
-			this._firstSlide = firstSlide;
-			this.rerender();
-		}
-	},
-	slideSpeed : function() {
-		if (this._slideSpeed != slideSpeed) {
-			this._slideSpeed = slideSpeed;
-			this.rerender();
-		}
-	},
-	pauseOnHover : function() {
-		if (this._pauseOnHover != pauseOnHover) {
-			this._pauseOnHover = pauseOnHover;
-			this.rerender();
-		}
-	},
-	cycleSpeed : function() {
-		if (this._cycleSpeed != cycleSpeed) {
-			this._cycleSpeed = cycleSpeed;
-			this.rerender();
-		}
-	},
-	rounded : function() {
-		if (this._rounded != rounded) {
-			this._rounded = rounded;
-			this.rerender();
-		}
-	},
-	easing : function() {
-		if (this._easing != easing) {
-			this._easing = easing;
-			this.rerender();
-		}
-	},
-	setTheme : function(theme) {
-		if (this._theme != theme) {
-			this._theme = theme;
-			this.rerender();
-		}
-	},
-	enumerateSlides : function() {
-		if (this._enumerateSlides != enumerateSlides) {
-			this._enumerateSlides = enumerateSlides;
-			this.rerender();
-		}
-	},
-	linkable : function() {
-		if (this._linkable != linkable) {
-			this._linkable = rounded;
-			this.rerender();
-		}
+	setHflex: function (v) { 
+		if (v != 'min') v = false;
+		this.$super(accordion.Accordion, 'setHflex', v);
 	},
 
 	bind_ : function() {
@@ -179,7 +78,7 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		this.$supers(accordion.Accordion, 'bind_', arguments);
 
 		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
-		// this.domListen_(this.$n("cave"), "onClick", "_doItemsClick");
+		this.domListen_(this.$n(""), "onClick", "_doClick");
 	},
 
 	/*
@@ -203,19 +102,21 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 	getZclass : function() {
 		return this._zclass != null ? this._zclass : "z-accordion";
 	},
-	
-	onChildAdded_: function (child) {
+
+	onChildAdded_ : function(child) {
 		this.$supers('onChildAdded_', arguments);
 		if (child.$instanceof(accordion.Accordionpanel)) {
-			this.accordionpanel = child;
+			this.rerender();
 		}
-		this.rerender();
 	},
-	
-	onChildRemoved_: function (child) {
+
+	onChildRemoved_ : function(child) {
 		this.$supers('onChildRemoved_', arguments);
-		if (child == this.accordionpanel)
-			this.tabpanels = null;
+		if (child == this.accordionpanel) {
+			this._selectedpanel = null;
+			this.rerender();
+		}
+		
 		if (!this.childReplacing_)
 			this.rerender();
 	},

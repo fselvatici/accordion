@@ -1,206 +1,240 @@
 package org.zkoss.component.accordion;
 
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.zkoss.lang.Objects;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.UiException;
-import org.zkoss.zk.ui.event.Deferrable;
-import org.zkoss.zk.ui.event.Event;
-import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.Events;
+import org.zkoss.zk.ui.event.SelectEvent;
 import org.zkoss.zul.impl.XulElement;
 
 public class Accordion extends XulElement {
-	private String containerWidth;
+	private String _containerWidth;
 
-	private String containerHeight;
+	private String _containerHeight;
 
-	private String headerWidth;
+	private String _headerWidth;
 
-	private boolean autoPlay;
+	private boolean _autoPlay;
 
-	private String activateOn;
+	private String _activateOn;
 
-	private Integer firstSlide;
+	private Integer _firstSlide;
 
-	private Integer slideSpeed;
+	private Integer _slideSpeed;
 
-	private boolean pauseOnHover;
+	private boolean _pauseOnHover;
 
-	private Integer cycleSpeed;
+	private Integer _cycleSpeed;
 
-	private String easing;
+	private String _easing;
 
-	private String theme;
+	private String _theme;
 
-	private boolean rounded;
+	private boolean _rounded;
 
-	private boolean enumerateSlides;
+	private boolean _enumerateSlides;
 
-	private boolean linkable;
+	private boolean _linkable;
 
-	transient EventListener _listener;
+	private int _count;
+	private Accordionpanel _selpanel;
+	private List _panelList;
 
-	public Accordion() {
-		init();
+	static {
+		addClientEvent(Accordion.class, Events.ON_SELECT, CE_IMPORTANT);
 	}
 
-	private void init() {
-		_listener = new Listener();
+	public Accordion() {
+		_count = 0;
+		_panelList = new ArrayList();
 	}
 
 	public String getContainerHeight() {
-		return containerHeight;
+		return _containerHeight;
 	}
 
 	public void setContainerHeight(String containerHeight) {
-		if (!Objects.equals(this.containerHeight, containerHeight)) {
-			this.containerHeight = containerHeight;
-			smartUpdate("containerHeight", this.containerHeight);
+		if (!Objects.equals(this._containerHeight, containerHeight)) {
+			this._containerHeight = containerHeight;
+			smartUpdate("containerHeight", this._containerHeight);
 		}
 	}
 
 	public String getContainerWidth() {
-		return containerWidth;
+		return _containerWidth;
 	}
 
 	public void setContainerWidth(String containerWidth) {
-		if (!Objects.equals(this.containerWidth, containerWidth)) {
-			this.containerWidth = containerWidth;
-			smartUpdate("containerWidth", this.containerWidth);
+		if (!Objects.equals(this._containerWidth, containerWidth)) {
+			this._containerWidth = containerWidth;
+			smartUpdate("containerWidth", this._containerWidth);
 		}
 	}
 
 	public String getHeaderWidth() {
-		return headerWidth;
+		return _headerWidth;
 	}
 
 	public void setHeaderWidth(String headerWidth) {
-		if (!Objects.equals(this.headerWidth, headerWidth)) {
-			this.headerWidth = headerWidth;
-			smartUpdate("headerWidth", this.headerWidth);
+		if (!Objects.equals(this._headerWidth, headerWidth)) {
+			this._headerWidth = headerWidth;
+			smartUpdate("headerWidth", this._headerWidth);
 		}
 	}
 
 	public boolean isAutoPlay() {
-		return autoPlay;
+		return _autoPlay;
 	}
 
 	public void setAutoPlay(boolean autoPlay) {
-		if (this.autoPlay != autoPlay) {
-			this.autoPlay = autoPlay;
-			smartUpdate("autoPlay", this.autoPlay);
+		if (this._autoPlay != autoPlay) {
+			this._autoPlay = autoPlay;
+			smartUpdate("autoPlay", this._autoPlay);
 		}
 	}
 
 	public String getActivateOn() {
-		return activateOn;
+		return _activateOn;
 	}
 
 	public void setActivateOn(String activateOn) {
-		if (!Objects.equals(this.activateOn, activateOn)) {
-			this.activateOn = activateOn;
-			smartUpdate("activateOn", this.activateOn);
+		if (!Objects.equals(this._activateOn, activateOn)) {
+			this._activateOn = activateOn;
+			smartUpdate("activateOn", this._activateOn);
 		}
 	}
 
 	public Integer getFirstSlide() {
-		return firstSlide;
+		return _firstSlide;
 	}
 
 	public void setFirstSlide(Integer firstSlide) {
-		if (this.firstSlide != firstSlide) {
-			this.firstSlide = firstSlide;
-			smartUpdate("firstSlide", this.firstSlide);
+		if (this._firstSlide != firstSlide) {
+			this._firstSlide = firstSlide;
+			smartUpdate("firstSlide", this._firstSlide);
 		}
 	}
 
 	public Integer getSlideSpeed() {
-		return slideSpeed;
+		return _slideSpeed;
 	}
 
 	public void setSlideSpeed(Integer slideSpeed) {
-		if (this.slideSpeed != slideSpeed) {
-			this.slideSpeed = slideSpeed;
-			smartUpdate("slideSpeed", this.slideSpeed);
+		if (this._slideSpeed != slideSpeed) {
+			this._slideSpeed = slideSpeed;
+			smartUpdate("slideSpeed", this._slideSpeed);
 		}
 	}
 
 	public boolean isPauseOnHover() {
-		return pauseOnHover;
+		return _pauseOnHover;
 	}
 
 	public void setPauseOnHover(boolean pauseOnHover) {
-		if (this.pauseOnHover != pauseOnHover) {
-			this.pauseOnHover = pauseOnHover;
-			smartUpdate("pauseOnHover", this.pauseOnHover);
+		if (this._pauseOnHover != pauseOnHover) {
+			this._pauseOnHover = pauseOnHover;
+			smartUpdate("pauseOnHover", this._pauseOnHover);
 		}
 	}
 
 	public Integer getCycleSpeed() {
-		return cycleSpeed;
+		return _cycleSpeed;
 	}
 
 	public void setCycleSpeed(Integer cycleSpeed) {
-		if (this.cycleSpeed != cycleSpeed) {
-			this.cycleSpeed = cycleSpeed;
-			smartUpdate("cycleSpeed", this.cycleSpeed);
+		if (this._cycleSpeed != cycleSpeed) {
+			this._cycleSpeed = cycleSpeed;
+			smartUpdate("cycleSpeed", this._cycleSpeed);
 		}
 	}
 
 	public String getEasing() {
-		return easing;
+		return _easing;
 	}
 
 	public void setEasing(String easing) {
-		if (!Objects.equals(this.easing, easing)) {
-			this.easing = easing;
-			smartUpdate("easing", this.easing);
+		if (!Objects.equals(this._easing, easing)) {
+			this._easing = easing;
+			smartUpdate("easing", this._easing);
 		}
 	}
 
 	public String getTheme() {
-		return theme;
+		return _theme;
 	}
 
 	public void setTheme(String theme) {
-		if (!Objects.equals(this.theme, theme)) {
-			this.theme = theme;
-			smartUpdate("theme", this.theme);
+		if (!Objects.equals(this._theme, theme)) {
+			this._theme = theme;
+			smartUpdate("theme", this._theme);
 		}
 	}
 
 	public boolean isRounded() {
-		return rounded;
+		return _rounded;
 	}
 
 	public void setRounded(boolean rounded) {
-		if (this.rounded != rounded) {
-			this.rounded = rounded;
-			smartUpdate("rounded", this.rounded);
+		if (this._rounded != rounded) {
+			this._rounded = rounded;
+			smartUpdate("rounded", this._rounded);
 		}
 	}
 
 	public boolean isEnumerateSlides() {
-		return enumerateSlides;
+		return _enumerateSlides;
 	}
 
 	public void setEnumerateSlides(boolean enumerateSlides) {
-		if (this.enumerateSlides != enumerateSlides) {
-			this.enumerateSlides = enumerateSlides;
-			smartUpdate("enumerateSlides", this.enumerateSlides);
+		if (this._enumerateSlides != enumerateSlides) {
+			this._enumerateSlides = enumerateSlides;
+			smartUpdate("enumerateSlides", this._enumerateSlides);
 		}
 	}
 
 	public boolean isLinkable() {
-		return linkable;
+		return _linkable;
 	}
 
 	public void setLinkable(boolean linkable) {
-		if (this.linkable != linkable) {
-			this.linkable = linkable;
-			smartUpdate("linkable", this.linkable);
+		if (this._linkable != linkable) {
+			this._linkable = linkable;
+			smartUpdate("linkable", this._linkable);
+		}
+	}
+
+	/**
+	 * Returns the selected panel.
+	 */
+	public Accordionpanel getSelectedpanel() {
+		return _selpanel;
+	}
+
+	/**
+	 * Sets the selected panel.
+	 */
+	public void setSelectedPanel(Accordionpanel panel) {
+		selectPanelDirectly(panel, false);
+	}
+
+	/** Sets the selected panel. */
+	/* packge */void selectPanelDirectly(Accordionpanel panel, boolean byClient) {
+		if (panel == null)
+			throw new IllegalArgumentException("null panel");
+		if (panel.getAccordion() != this)
+			throw new UiException("Not my child: " + panel);
+		if (panel != _selpanel) {
+			if (_selpanel != null) {
+				_selpanel.setSelectedDirectly(false);
+			}
+			_selpanel = panel;
+			_selpanel.setSelectedDirectly(true);
+			if (!byClient)
+				smartUpdate("selectedpanel", _selpanel);
 		}
 	}
 
@@ -209,20 +243,21 @@ public class Accordion extends XulElement {
 			throws java.io.IOException {
 		super.renderProperties(renderer);
 
-		render(renderer, "containerWidth", containerWidth);
-		render(renderer, "containerHeight", containerHeight);
-		render(renderer, "headerWidth", headerWidth);
-		render(renderer, "autoPlay", autoPlay);
-		render(renderer, "activateOn", activateOn);
-		render(renderer, "firstSlide", firstSlide);
-		render(renderer, "slideSpeed", slideSpeed);
-		render(renderer, "pauseOnHover", pauseOnHover);
-		render(renderer, "cycleSpeed", cycleSpeed);
-		render(renderer, "easing", easing);
-		render(renderer, "theme", theme);
-		render(renderer, "rounded", rounded);
-		render(renderer, "enumerateSlides", enumerateSlides);
-		render(renderer, "linkable", linkable);
+		render(renderer, "containerWidth", _containerWidth);
+		render(renderer, "containerHeight", _containerHeight);
+		render(renderer, "headerWidth", _headerWidth);
+		render(renderer, "autoPlay", _autoPlay);
+		render(renderer, "activateOn", _activateOn);
+		render(renderer, "firstSlide", _firstSlide);
+		render(renderer, "slideSpeed", _slideSpeed);
+		render(renderer, "pauseOnHover", _pauseOnHover);
+		render(renderer, "cycleSpeed", _cycleSpeed);
+		render(renderer, "easing", _easing);
+		render(renderer, "theme", _theme);
+		render(renderer, "rounded", _rounded);
+		render(renderer, "enumerateSlides", _enumerateSlides);
+		render(renderer, "linkable", _linkable);
+		render(renderer, "selectedpanel", _selpanel);
 	}
 
 	/**
@@ -237,70 +272,52 @@ public class Accordion extends XulElement {
 			throw new UiException("Unsupported child for accordion: " + child);
 		}
 		super.beforeChildAdded(child, refChild);
-	}
-
-	public boolean insertBefore(Component child, Component refChild) {
-		if (child instanceof Accordionpanel) {
-			if (super.insertBefore(child, refChild)) {
-				addAccordionListeners();
-				return true;
+		_panelList.add(child);
+		_count++;
+		if (_firstSlide.intValue() > 0) {
+			if (_firstSlide.intValue() == _count) {
+				_selpanel = (Accordionpanel) child;
+			}
+		} else {
+			if (_selpanel == null) {
+				_selpanel = (Accordionpanel) child;
 			}
 		}
-		return false;
 	}
 
 	public void onChildRemoved(Component child) {
-		if (child instanceof Accordionpanel) {
-			removeAccordionListener(child);
-		}
 		super.onChildRemoved(child);
-	}
-
-	/**
-	 * Removes _listener from all the {@link Accordionpanel} instances.
-	 * 
-	 * @param child
-	 */
-	private void removeAccordionListeners() {
-		if (getChildren() != null) {
-			for (Iterator it = this.getChildren().iterator(); it.hasNext();) {
-				final Accordionpanel panel = (Accordionpanel) it.next();
-				removeAccordionListener(panel);
+		if (_selpanel == child) {
+			int i = 0;
+			for (Iterator it = _panelList.iterator(); it.hasNext();) {
+				Accordionpanel p = (Accordionpanel) it.next();
+				if (p == child) {
+					if (i > 0) {
+						_selpanel = (Accordionpanel) _panelList.get(i - 1);
+					} else {
+						_selpanel = null;
+					}
+				}
+				i++;
+			}
+			if (_selpanel != null) {
+				selectPanelDirectly(_selpanel, false);
 			}
 		}
 	}
 
-	/**
-	 * Removes _listener from the {@link Accordionpanel} instance.
-	 * 
-	 * @param child
-	 */
-	private void removeAccordionListener(Component child) {
-		if (child != null) {
-			child.removeEventListener(Events.ON_SELECT, _listener);
-		}
-	}
-
-	/** Adds _listener to all {@link Accordionpanel} instances. */
-	private void addAccordionListeners() {
-		if (getChildren() != null) {
-			for (Iterator it = this.getChildren().iterator(); it.hasNext();) {
-				final Accordionpanel panel = (Accordionpanel) it.next();
-				panel.addEventListener(
-						AccordionSelectEvent.ON_ACCORDION_SELECT, _listener);
+	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
+		final String cmd = request.getCommand();
+		if (cmd.equals(Events.ON_SELECT)) {
+			SelectEvent evt = SelectEvent.getSelectEvent(request);
+			if (evt.getSelectedItems().size() != 1) {
+				throw new IllegalArgumentException("Must be one selected panel");
 			}
-		}
-	}
-
-	private class Listener implements EventListener, Deferrable {
-		public void onEvent(Event event) {
-			Events.sendEvent(Accordion.this, event);
-		}
-
-		public boolean isDeferrable() {
-			return !Events.isListened(Accordion.this,
-					AccordionSelectEvent.ON_ACCORDION_SELECT, true);
-		}
+			_selpanel = (Accordionpanel) evt.getSelectedItems().iterator()
+					.next();
+			Events.postEvent(evt);
+		} else
+			super.service(request, everError);
 	}
 
 }

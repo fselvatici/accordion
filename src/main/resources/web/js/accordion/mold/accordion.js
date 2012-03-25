@@ -6,9 +6,8 @@
 function (out) {
 	var uuid = this.uuid;
 
- out.push('<div', this.domAttrs_(), ' id=',uuid,'>');
+	out.push('<div', this.domAttrs_(), '>');
 	out.push('<ol>');
-	
 	for (var w = this.firstChild; w; w = w.nextSibling)
 		w.redraw(out);
 	
@@ -63,18 +62,7 @@ function (out) {
 	var l = parameters.length;
 	parameters = parameters.substring(0,l-1);
 	out.push("$('#",uuid,"').liteAccordion({",
-// "onTriggerSlide : function() {this.find('figcaption').fadeOut();},",
-// "onSlideAnimComplete : function() {this.find('figcaption').fadeIn();},",
 				parameters,
 			"}).show()");
 	out.push('</script>');
-	
-// out.push('<script>');
-// out.push("(function($) {$('#",uuid,"').liteAccordion('play');})(jQuery);");
-// out.push('</script>');
-
-// out.push('<script>');
-// out.push('(function($) {$(#',uuid,').liteAccordion("play");})(jQuery);');
-// out.push('</script>');
-
 }
