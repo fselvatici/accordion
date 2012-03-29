@@ -8,7 +8,7 @@ import org.zkoss.zul.impl.XulElement;
 public class Accordionpanel extends XulElement {
 
 	private String _title;
-	
+
 	private boolean _selected;
 
 	public String getTitle() {
@@ -16,17 +16,16 @@ public class Accordionpanel extends XulElement {
 	}
 
 	public void setTitle(String title) {
-
 		if (!Objects.equals(this._title, title)) {
 			this._title = title;
 			smartUpdate("title", this._title);
 		}
 	}
-	
+
 	public boolean isSelected() {
 		return _selected;
 	}
-	
+
 	/**
 	 * Returns the accordion owns this component.
 	 * <p>
@@ -61,6 +60,5 @@ public class Accordionpanel extends XulElement {
 	public void setSelectedDirectly(boolean selected) {
 		this._selected = selected;
 	}
-
 
 }

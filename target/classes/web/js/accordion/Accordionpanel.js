@@ -17,7 +17,6 @@
 accordion.Accordionpanel = zk.$extends(zul.Widget, {
 	_title : null, // default value for title attribute
 	_selected : false,
-	_panelNum : 0,
 
 	/**
 	 * Don't use array/object as a member field, it's a restriction for ZK
@@ -53,7 +52,6 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 			}
 		},
 		selected : _zkf,
-		getPanelNum : _zkf,
 		getAccordion : function () {
 			return this.parent;
 		}

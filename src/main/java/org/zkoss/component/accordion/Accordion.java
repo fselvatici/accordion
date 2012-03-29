@@ -40,17 +40,13 @@ public class Accordion extends XulElement {
 
 	private boolean _linkable;
 
-	private int _count;
 	private Accordionpanel _selpanel;
-	private List _panelList;
 
 	static {
 		addClientEvent(Accordion.class, Events.ON_SELECT, CE_IMPORTANT);
 	}
 
 	public Accordion() {
-		_count = 0;
-		_panelList = new ArrayList();
 	}
 
 	public String getContainerHeight() {
@@ -225,7 +221,7 @@ public class Accordion extends XulElement {
 	/* packge */void selectPanelDirectly(Accordionpanel panel, boolean byClient) {
 		if (panel == null)
 			throw new IllegalArgumentException("null panel");
-		if (panel.getAccordion() != this)
+		if (panel.getAccordion() != null && panel.getAccordion() != this)
 			throw new UiException("Not my child: " + panel);
 		if (panel != _selpanel) {
 			if (_selpanel != null) {
@@ -272,38 +268,40 @@ public class Accordion extends XulElement {
 			throw new UiException("Unsupported child for accordion: " + child);
 		}
 		super.beforeChildAdded(child, refChild);
-		_panelList.add(child);
-		_count++;
+		int _count = this.getChildren().size() + 1;
 		if (_firstSlide.intValue() > 0) {
 			if (_firstSlide.intValue() == _count) {
-				_selpanel = (Accordionpanel) child;
+				selectPanelDirectly((Accordionpanel) child, false);
 			}
 		} else {
-			if (_selpanel == null) {
-				_selpanel = (Accordionpanel) child;
+			if (this.getChildren().size() > 0) {
+				selectPanelDirectly((Accordionpanel) this.getChildren().get(0),
+						false);
 			}
 		}
+	}
+	
+	public void beforeChildRemoved(Component child) {
+		Component p = child.getPreviousSibling();
+		if (p!=null) {
+			selectPanelDirectly((Accordionpanel) p, false);
+		} else {
+			p = child.getNextSibling();
+			if (p!=null) {
+				selectPanelDirectly((Accordionpanel) p, false);
+			}
+		}
+		if (p!=null) {
+			Integer i = Integer.valueOf(this.getChildren().indexOf(p)+1);
+			setFirstSlide(i);
+		} else {
+			setFirstSlide(Integer.valueOf(0));
+		}
+		super.beforeChildRemoved(child);
 	}
 
 	public void onChildRemoved(Component child) {
 		super.onChildRemoved(child);
-		if (_selpanel == child) {
-			int i = 0;
-			for (Iterator it = _panelList.iterator(); it.hasNext();) {
-				Accordionpanel p = (Accordionpanel) it.next();
-				if (p == child) {
-					if (i > 0) {
-						_selpanel = (Accordionpanel) _panelList.get(i - 1);
-					} else {
-						_selpanel = null;
-					}
-				}
-				i++;
-			}
-			if (_selpanel != null) {
-				selectPanelDirectly(_selpanel, false);
-			}
-		}
 	}
 
 	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {

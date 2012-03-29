@@ -64,8 +64,9 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 			});
 		}
 	},
-	setHflex: function (v) { 
-		if (v != 'min') v = false;
+	setHflex : function(v) {
+		if (v != 'min')
+			v = false;
 		this.$super(accordion.Accordion, 'setHflex', v);
 	},
 
@@ -76,6 +77,10 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		 * you will get error.
 		 */
 		this.$supers(accordion.Accordion, 'bind_', arguments);
+		zWatch.listen({
+			onSize : this,
+			beforeSize : this
+		});
 
 		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
 		this.domListen_(this.$n(""), "onClick", "_doClick");
@@ -113,12 +118,31 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 	onChildRemoved_ : function(child) {
 		this.$supers('onChildRemoved_', arguments);
 		if (child == this.accordionpanel) {
-			this._selectedpanel = null;
 			this.rerender();
 		}
-		
-		if (!this.childReplacing_)
+
+		if (!this.childReplacing_) {
 			this.rerender();
+		}
+	},
+	onSize : function() {
+		this._fixWidth();
+	},
+	_fixWidth : function() {
+		/*
+		var parent = this.parent.$n();
+		if (this.__width || !zk(parent).isRealVisible())
+			return;
+		var width = parent.offsetWidth, n = this.$n(), sumWidth = 0;
+		alert(this.parent.uuid);
+		for ( var w = this.firstChild; w; w = w.nextSibling) {
+			alert(w.uuid);
+			if (w.style && w.style.width) {
+				sumWidth = sumWidth + w.style.width;
+			}
+		}
+		n.style.width = jq.px0(zk(n).revisedWidth(width));
+		*/
 	},
 
 });
