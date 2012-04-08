@@ -54,7 +54,7 @@ public class Accordionpanel extends XulElement {
 	 * The default zclass is "z-accordion"
 	 */
 	public String getZclass() {
-		return (this._zclass != null ? this._zclass : "z-accordion");
+		return (this._zclass != null ? this._zclass : "z-accordionpanel");
 	}
 
 	public void setSelectedDirectly(boolean selected) {

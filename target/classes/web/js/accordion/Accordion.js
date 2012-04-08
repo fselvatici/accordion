@@ -25,7 +25,6 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 	_pauseOnHover : null,
 	_cycleSpeed : null,
 	_easing : null,
-	_theme : null,
 	_rounded : null,
 	_enumerateSlides : null,
 	_linkable : null,
@@ -45,7 +44,6 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		cycleSpeed : _zkf,
 		rounded : _zkf,
 		easing : _zkf,
-		theme : _zkf,
 		enumerateSlides : _zkf,
 		linkable : _zkf,
 		containerWidth : _zkf,
@@ -56,8 +54,8 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 
 	_doClick : function(evt) {
 		if (evt.domTarget.nodeName == 'SPAN') {
-			var paneluuid = evt.domTarget.parentNode.getAttribute('id');
-			selectedpanel = zk.Widget.$(paneluuid);
+			selectedpanel = evt.target;
+			var paneluuid = selectedpanel.id;
 			this.fire("onSelect", {
 				items : [ selectedpanel ],
 				reference : paneluuid
@@ -83,7 +81,7 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		});
 
 		// A example for domListen_ , REMEMBER to do domUnlisten in unbind_.
-		this.domListen_(this.$n(""), "onClick", "_doClick");
+		this.domListen_(this.$n(), "onClick", "_doClick");
 	},
 
 	/*
@@ -101,11 +99,19 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		 * For widget lifecycle , the super unbind_ should be called as LAST
 		 * STATEMENT in the function.
 		 */
+		zWatch.unlisten({
+			onSize : this,
+			beforeSize : this
+		});
 		this.$supers(accordion.Accordion, 'unbind_', arguments);
 	},
 
 	getZclass : function() {
-		return this._zclass != null ? this._zclass : "z-accordion";
+		var _zcls = this._zclass != null ? this._zclass : "z-accordion";
+		if (this._mold != 'basic') {
+			_zcls = _zcls + ' z-accordion-' + this._mold;
+		}
+		return _zcls;
 	},
 
 	onChildAdded_ : function(child) {
@@ -117,7 +123,7 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 
 	onChildRemoved_ : function(child) {
 		this.$supers('onChildRemoved_', arguments);
-		if (child == this.accordionpanel) {
+		if (child == this.selectedpanel) {
 			this.rerender();
 		}
 
@@ -143,6 +149,5 @@ accordion.Accordion = zk.$extends(zul.Widget, {
 		}
 		n.style.width = jq.px0(zk(n).revisedWidth(width));
 		*/
-	},
-
+	}
 });

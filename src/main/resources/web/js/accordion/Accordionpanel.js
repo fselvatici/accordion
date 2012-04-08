@@ -46,12 +46,11 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 		    	   this.$n().lastChild.innerHTML = t;
 		       }
 		    },
-		_zkf : function(val) {
+		selected : function(val) {
 			if (this.desktop) {
 				this.rerender();
 			}
 		},
-		selected : _zkf,
 		getAccordion : function () {
 			return this.parent;
 		}
@@ -86,6 +85,6 @@ accordion.Accordionpanel = zk.$extends(zul.Widget, {
 	},
 
 	getZclass : function() {
-		return this._zclass != null ? this._zclass : "z-accordion";
+		return this._zclass != null ? this._zclass : "z-accordionpanel";
 	}
 });

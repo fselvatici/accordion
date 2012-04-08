@@ -13,9 +13,24 @@
 		</component-class>
 		<widget-class>accordion.Accordion</widget-class>
 		<mold>
-			<mold-name>default</mold-name>
+			<mold-name>basic</mold-name>
 			<mold-uri>mold/accordion.js</mold-uri>
 			<css-uri>css/accordion.css.dsp</css-uri>
+		</mold>
+		<mold>
+			<mold-name>dark</mold-name>
+			<mold-uri>mold/accordion.js</mold-uri>
+			<css-uri>css/accordion-dark.css.dsp</css-uri>
+		</mold>
+		<mold>
+			<mold-name>light</mold-name>
+			<mold-uri>mold/accordion.js</mold-uri>
+			<css-uri>css/accordion-light.css.dsp</css-uri>
+		</mold>
+		<mold>
+			<mold-name>stitch</mold-name>
+			<mold-uri>mold/accordion.js</mold-uri>
+			<css-uri>css/accordion-stitch.css.dsp</css-uri>
 		</mold>
 	</component>
 	<component>

@@ -6,12 +6,16 @@
 function (out) {
 	var uuid = this.uuid;
 
-	out.push('<div', this.domAttrs_(), '><ol>');
+	alert(constructParameters());
+	out.push('<div', this.domAttrs_(), '>');
+	out.push('<ol>');
 	for (var w = this.firstChild; w; w = w.nextSibling)
 		w.redraw(out);
 	
-	out.push('</ol></div><script>');
+	out.push('</ol>');
+	out.push('</div>');
 
+	out.push('<script>');
 	var parameters='', coma=',';
 	if (this._containerWidth) {
 		parameters=parameters + 'containerWidth:'+this._containerWidth + coma;
@@ -44,8 +48,7 @@ function (out) {
 	if (this._easing) {
 		parameters=parameters + 'easing:'+this._easing + coma;
 	}
-	var _theme = this._mold;
-	parameters=parameters + "theme:'z-accordion-"+_theme + "'" + coma;
+	parameters=parameters + "theme:'dark'" + coma;
 	if (this._rounded) {
 		parameters=parameters + 'rounded:'+this._rounded + coma;
 	}
@@ -59,5 +62,6 @@ function (out) {
 	parameters = parameters.substring(0,l-1);
 	out.push("$('#",uuid,"').liteAccordion({",
 				parameters,
-			"}).show()", '</script>');
+			"}).show()");
+	out.push('</script>');
 }

@@ -4,9 +4,9 @@
 <%@ taglib uri="http://www.zkoss.org/dsp/web/core" prefix="c" %>
 
 
-.accordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif }
-.accordion > ol { position: relative; overflow: hidden; height: 100%; margin: 0; padding: 0; list-style-type: none }
-.accordion .slide > h2 { 
+.z-accordion { text-align: left; font: 'Helvetica Neue', Verdana, Arial, sans-serif }
+.z-accordion > ol { position: relative; overflow: hidden; height: 100%; margin: 0; padding: 0; list-style-type: none }
+.z-accordion .slide > h2 { 
 	color: black;
     font-size: 16px;	 
 	font-weight: normal;
@@ -23,10 +23,10 @@
 	-o-transform-origin: right top; 
 	transform: translateX(-100%) rotate(-90deg); 
 	transform-origin: right top;
-	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3); 
+	-ms-filter: "progid:DXImageTransform.Microsoft.z-accordion-basicImage(rotation=3)";
+    filter: progid:DXImageTransform.Microsoft.z-accordion-basicImage(rotation=3); 
 }
-.accordion .slide > h2 span { 
+.z-accordion .slide > h2 span { 
     display: block; 
     padding-right: 8%; 
     text-align: right; 
@@ -36,7 +36,7 @@
     -khtml-user-select: none;
     user-select: none;
 }
-.accordion .slide > h2 b { 
+.z-accordion .slide > h2 b { 
     display: inline-block; 
     position: absolute; 
     top: 13%; 
@@ -46,155 +46,16 @@
     -moz-transform: rotate(90deg); 
     -o-transform: rotate(90deg); 
     transform: rotate(90deg);
-	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=1)";
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+	-ms-filter: "progid:DXImageTransform.Microsoft.z-accordion-basicImage(rotation=1)";
+    filter: progid:DXImageTransform.Microsoft.z-accordion-basicImage(rotation=1);
 }
-.accordion .slide > h2:hover { cursor: pointer }
-.accordion .slide > div { height: 100%; position: absolute; top: 0; z-index: 10; overflow: hidden; background: white }
-.accordion noscript p { padding: 10px; margin: 0; background: white }
+.z-accordion .slide > h2:hover { cursor: pointer }
+.z-accordion .slide > div { height: 100%; position: absolute; top: 0; z-index: 10; overflow: hidden; background: white }
+.z-accordion noscript p { padding: 10px; margin: 0; background: white }
 
 /****************************************** Basic */
-.basic .slide > h2 { background: #333; color: white; line-height: 225% }
+.z-accordion-basic .slide > h2 { background: #333; color: white; line-height: 225% }
 
-/****************************************** Dark */
-.dark { 
-    border: 9px solid #353535; 
-    border-bottom-width: 8px; 
-    padding: 5px 5px 6px 0; 
-    background: #030303; 
-    -webkit-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4); 
-    -moz-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4); 
-    -ms-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
-    -o-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
-	box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
-}
-.dark .slide > h2 { background: #030303; text-shadow: 0 -1px 0 #030303; line-height: 265% }
-.dark .slide > h2 span { background: #353535; color: white }
-.dark .slide > h2 b { background: #353535; color: #030303; text-shadow: -1px 1px 0 #5b5b5b }
-.dark .slide > h2.selected span, .dark .slide > h2.selected span:hover { 
-    background: #353535;
-    background: -moz-linear-gradient(left,  #353535 0%, #555555 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#353535), color-stop(100%,#555555));
-    background: -webkit-linear-gradient(left,  #353535 0%,#555555 100%);
-    background: -o-linear-gradient(left,  #353535 0%,#555555 100%);
-    background: -ms-linear-gradient(left,  #353535 0%,#555555 100%);
-    background: linear-gradient(left,  #353535 0%,#555555 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#353535', endColorstr='#555555',GradientType=1 );
-}
-.dark .slide > h2.selected b { 
-    background: #383838;
-    background: -moz-linear-gradient(top,  #3a3a3a 0%, #363636 100%);
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3a3a3a), color-stop(100%,#363636));
-    background: -webkit-linear-gradient(top,  #3a3a3a 0%,#363636 100%);
-    background: -o-linear-gradient(top,  #3a3a3a 0%,#363636 100%);
-    background: -ms-linear-gradient(top,  #3a3a3a 0%,#363636 100%);
-    background: linear-gradient(top,  #3a3a3a 0%,#363636 100%);
-}
-.dark .slide > div { background: #030303; margin-left: 5px }
-
-/***************************************** Light */
-.light { 
-    border: 9px solid white; 
-    border-bottom-width: 8px; 
-    padding: 5px 5px 6px 0; 
-    background: #a0a0a0; 
-    -webkit-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4); 
-    -moz-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);
-    -ms-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);    
-    -o-box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4); 
-	box-shadow: -1px -1px 0 #c0c0c0, 1px 1px 0 #c0c0c0, 0 5px 15px rgba(0, 0, 0, 0.4);
-}
-.light .slide > h2 { background: #a0a0a0; text-shadow: 0 -1px 0 white; line-height: 265% }
-.light .slide > h2 span { 
-    background: #fcfcfc;
-    background: -moz-linear-gradient(left,  #fcfcfc 0%, #ededed 100%);
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#fcfcfc), color-stop(100%,#ededed));
-    background: -webkit-linear-gradient(left,  #fcfcfc 0%,#ededed 100%);
-    background: -o-linear-gradient(left,  #fcfcfc 0%,#ededed 100%);
-    background: -ms-linear-gradient(left,  #fcfcfc 0%,#ededed 100%);
-    background: linear-gradient(left,  #fcfcfc 0%,#ededed 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=1 );
-    -webkit-box-shadow: -1px -1px 0 #909090 inset, 1px 1px 0 #909090 inset; 
-    -moz-box-shadow: -1px -1px 0 #909090 inset, 1px 1px 0 #909090 inset;
-    -o-box-shadow: -1px -1px 0 #909090 inset, 1px 1px 0 #909090 inset;
-	box-shadow: -1px -1px 0 #909090 inset, 1px 1px 0 #909090 inset;
-    color: #909090;
-}
-.light .slide > h2 b { background: #ffffff; color: #909090; text-shadow: -1px 1px 0 white }
-.light .slide > h2.selected span, .light .slide h2.selected span:hover, .light .slide > h2.selected b { background: #ffffff }
-.light .slide > div { background: #a0a0a0; margin-left: 5px }
-
-/**************************************** Stitch */
-.stitch {
-    position: relative;
-    padding: 5px 0 5px 5px;
-    border: 11px solid #353535;
-    background: #353535;
-    -webkit-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4); 
-    -moz-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4); 
-    -o-box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
-    box-shadow: 0 -1px 0 #5b5b5b inset, 0 5px 15px rgba(0, 0, 0, 0.4);
-}
-.stitch:before { 
-    content: ''; 
-    width: 100%; 
-    height: 100%; 
-    position: absolute; 
-    top: -9px; 
-    left: -9px; 
-    background: #353535; 
-    border-width: 9px;     
-    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
-    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;   
-}
-.stitch .slide > h2 { background: #353535 }
-.stitch .slide > h2 span {
-    height: auto;
-    padding-right: 5%;
-    color: white;
-    text-shadow: -1px 1px 0 #5b5b5b;
-    border-width: 9px; 
-    background-image: url(${c:encodeURL('~./img/bg_noise.png')});
-    margin-top: 0;
-    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
-    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-}
-.stitch .slide > h2.selected:after { 
-    content: ''; 
-    display: block; 
-    height: 11px; 
-    width: 11px; 
-    position: absolute; 
-    bottom: -3px; 
-    right: 38px;
-    -webkit-transform: rotate(45deg); 
-    -moz-transform: rotate(45deg); 
-    -o-transform: rotate(45deg); 
-    transform: rotate(45deg);
-	-ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=2)";
-    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=2);
-    border-width: 9px;
-    border-top: 0;
-    border-left: 0; 
-    -webkit-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat; 
-    -moz-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    -o-border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    border-image: url(${c:encodeURL('~./img/bg_stitch.png')}) 9 repeat;
-    background-image: url(${c:encodeURL('~./img/bg_noise.png')});  
-}
-
-.stitch .slide:nth-child(1) > h2 span, .stitch .slide:nth-child(1) > h2:after { background-color: #c25252 }
-.stitch .slide:nth-child(2) > h2 span, .stitch .slide:nth-child(2) > h2:after { background-color: #ca9859 }
-.stitch .slide:nth-child(3) > h2 span, .stitch .slide:nth-child(3) > h2:after { background-color: #96ba5f }
-.stitch .slide:nth-child(4) > h2 span, .stitch .slide:nth-child(4) > h2:after { background-color: #59abb7 }
-.stitch .slide:nth-child(5) > h2 span, .stitch .slide:nth-child(5) > h2:after { background-color: #bb6098 }
-.stitch .slide > h2 b { top: 19%; color: white; text-shadow: 1px 1px 0 #5b5b5b }
-.stitch .slide > div { margin-right: 6px }
-.stitch.rounded > ol { -webkit-border-radius: 0; -moz-border-radius: 0; -ms-border-radius: 0; border-radius: 0 }
 
 /*************************************** Rounded */
 .rounded, .rounded > ol { -webkit-border-radius: 6px; -moz-border-radius: 6px; -ms-border-radius: 6px; border-radius: 6px }

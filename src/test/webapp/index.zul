@@ -1,10 +1,10 @@
 <zk>
 	<hlayout width="100%" hflex="true">
 		<accordion id="ac" containerHeight="250" hflex="1"
-			headerWidth="50" theme="stitch" firstSlide="2">
+			headerWidth="50" mold="dark" firstSlide="2">
 			<attribute name="onSelect">
 	<![CDATA[
-// 	Messagebox.show("Panel selected");
+ 	Messagebox.show("Panel selected");
 ]]>
 	</attribute>
 			<accordionpanel id="ap1" title="Title A">
@@ -22,12 +22,12 @@
 		<window id="w" title="HFlex test" hflex="2" width="200px" height="300px" border="normal"></window>
 	</hlayout>
 	<button label="Change Theme"><attribute name="onClick"><![CDATA[
-	if (ac.getTheme().equals("basic")) {
-		ac.setTheme("dark");
-	} else if (ac.getTheme().equals("dark")) {
-		ac.setTheme("stitch");
+	if (ac.getMold().equals("basic")) {
+		ac.setMold("dark");
+	} else if (ac.getMold().equals("dark")) {
+		ac.setMold("stitch");
 	} else {
-		ac.setTheme("basic");
+		ac.setMold("basic");
 	}
 ]]></attribute>
 	</button>

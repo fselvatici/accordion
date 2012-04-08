@@ -1,9 +1,5 @@
 package org.zkoss.component.accordion;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.zkoss.lang.Objects;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.UiException;
@@ -31,8 +27,6 @@ public class Accordion extends XulElement {
 	private Integer _cycleSpeed;
 
 	private String _easing;
-
-	private String _theme;
 
 	private boolean _rounded;
 
@@ -159,17 +153,6 @@ public class Accordion extends XulElement {
 		}
 	}
 
-	public String getTheme() {
-		return _theme;
-	}
-
-	public void setTheme(String theme) {
-		if (!Objects.equals(this._theme, theme)) {
-			this._theme = theme;
-			smartUpdate("theme", this._theme);
-		}
-	}
-
 	public boolean isRounded() {
 		return _rounded;
 	}
@@ -249,7 +232,6 @@ public class Accordion extends XulElement {
 		render(renderer, "pauseOnHover", _pauseOnHover);
 		render(renderer, "cycleSpeed", _cycleSpeed);
 		render(renderer, "easing", _easing);
-		render(renderer, "theme", _theme);
 		render(renderer, "rounded", _rounded);
 		render(renderer, "enumerateSlides", _enumerateSlides);
 		render(renderer, "linkable", _linkable);
