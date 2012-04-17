@@ -18,8 +18,6 @@ public class Accordion extends XulElement {
 
 	private String _activateOn;
 
-	private Integer _firstSlide;
-
 	private Integer _slideSpeed;
 
 	private boolean _pauseOnHover;
@@ -95,17 +93,6 @@ public class Accordion extends XulElement {
 		if (!Objects.equals(this._activateOn, activateOn)) {
 			this._activateOn = activateOn;
 			smartUpdate("activateOn", this._activateOn);
-		}
-	}
-
-	public Integer getFirstSlide() {
-		return _firstSlide;
-	}
-
-	public void setFirstSlide(Integer firstSlide) {
-		if (this._firstSlide != firstSlide) {
-			this._firstSlide = firstSlide;
-			smartUpdate("firstSlide", this._firstSlide);
 		}
 	}
 
@@ -227,7 +214,6 @@ public class Accordion extends XulElement {
 		render(renderer, "headerWidth", _headerWidth);
 		render(renderer, "autoPlay", _autoPlay);
 		render(renderer, "activateOn", _activateOn);
-		render(renderer, "firstSlide", _firstSlide);
 		render(renderer, "slideSpeed", _slideSpeed);
 		render(renderer, "pauseOnHover", _pauseOnHover);
 		render(renderer, "cycleSpeed", _cycleSpeed);
@@ -250,34 +236,23 @@ public class Accordion extends XulElement {
 			throw new UiException("Unsupported child for accordion: " + child);
 		}
 		super.beforeChildAdded(child, refChild);
-		int _count = this.getChildren().size() + 1;
-		if (_firstSlide.intValue() > 0) {
-			if (_firstSlide.intValue() == _count) {
-				selectPanelDirectly((Accordionpanel) child, false);
-			}
-		} else {
-			if (this.getChildren().size() > 0) {
-				selectPanelDirectly((Accordionpanel) this.getChildren().get(0),
-						false);
-			}
-		}
 	}
-	
+
 	public void beforeChildRemoved(Component child) {
-		Component p = child.getPreviousSibling();
-		if (p!=null) {
+		// If the removed panel is the selected one, we need to change the
+		// selected panel.
+		if (Objects.equals(child, _selpanel)) {
+			Component p = child.getPreviousSibling();
 			selectPanelDirectly((Accordionpanel) p, false);
-		} else {
-			p = child.getNextSibling();
-			if (p!=null) {
-				selectPanelDirectly((Accordionpanel) p, false);
+			if (p != null) {
+				Component f = getFirstChild();
+				int i=1;
+				while (!Objects.equals(p, f)) {
+					p = p.getPreviousSibling();
+					i++;
+				}
+				smartUpdate("firstSlide", i);
 			}
-		}
-		if (p!=null) {
-			Integer i = Integer.valueOf(this.getChildren().indexOf(p)+1);
-			setFirstSlide(i);
-		} else {
-			setFirstSlide(Integer.valueOf(0));
 		}
 		super.beforeChildRemoved(child);
 	}

@@ -1,7 +1,7 @@
 <zk>
 	<hlayout width="100%" hflex="true">
 		<accordion id="ac" containerHeight="250" hflex="1"
-			headerWidth="50" mold="dark" firstSlide="2">
+			headerWidth="50" mold="dark">
 			<attribute name="onSelect">
 	<![CDATA[
  	Messagebox.show("Panel selected");
